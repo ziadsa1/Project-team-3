@@ -5,9 +5,6 @@ import Login from "./components/LoginPage"
 export default function App() {
   return (
     <div>
-      <nav>
-        <Link to="/login">Login</Link>
-      </nav>
       <Routes>
         <Route path="/login" element={<Login />} />
       </Routes>
