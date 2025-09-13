@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
-import Login from "./LoginPages/LoginPage"
-import Register from "./LoginPages/Register";
-import Notes from "./MainPages/Notes"
+import Login from "./Pages/LoginPage"
+import Register from "./Pages/Register";
+import Notes from "./Pages/Notes"
 export default function App() {
   return (
     <div>

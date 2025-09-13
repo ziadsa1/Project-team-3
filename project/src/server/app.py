@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
@@ -24,7 +24,7 @@ def register():
     full_name = data.get("fullName")
     username = data.get("username")
     password = data.get("password")
-    birthday = data.get("birthday")
+    email = data.get("email")
 
     if users.find_one({"username": username}):
         return jsonify({"message": "Username have been taken."})
@@ -35,10 +35,9 @@ def register():
             "fullName": full_name,
             "username": username,
             "password": hash_password,
-            "birthday": birthday
+            "email": email
         }
     )
-
     return jsonify({"message": "User have been inserted."})
 
 @app.route("/", methods=["POST"])
@@ -50,14 +49,15 @@ def login():
     user = users.find_one({"username": username})
     if not user:
         return jsonify({"message": "User Not Found."}), 400
-    
+
     if bcrypt.checkpw(password.encode("utf-8"), user["password"]):
         return jsonify({
             "message":"Login Sucessful.",
             "user": user["fullName"]
-        })
+        }), 200 
     else:
         return jsonify({"message": "Invalid."}), 400
+
 
 if __name__ == "__main__":
     app.run(port=5000,debug=True)
