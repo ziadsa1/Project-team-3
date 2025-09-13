@@ -46,7 +46,7 @@ function RegisterPage() {
           <InputLogin
             type="text"
             placeholder="Email"
-            value={Email}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <InputLogin
