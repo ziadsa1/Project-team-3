@@ -1,0 +1,72 @@
+.navbar {
+  position: fixed;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  width: 220px;
+  background: linear-gradient(180deg, #4b6cb7, #182848);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  z-index: 1000;
+}
+.navbar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.navbar nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 9px;
+  transition: all 0.3s ease;
+}
+
+.navbar nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.pfp {
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.pfpicon {
+  font-size: 3rem;
+}
+
+.username {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.outbtn {
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.outbtn:hover {
+  background: #e64b48;
+  transform: scale(1.05);
+}

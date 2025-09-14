@@ -14,7 +14,6 @@ function RegisterPage() {
 
   async function register(e) {
     e.preventDefault();
-
     try {
       const response = await fetch("http://127.0.0.1:5000/register", {
         method: "POST",
@@ -27,8 +26,10 @@ function RegisterPage() {
       console.log(data);
       if (response.ok) {
         navigate("/");
-      } else alert(data.message);
-    } catch (error) {
+      } 
+      else alert(data.message);
+    } 
+    catch (error) {
       console.error("Error:", error);
     }
   }

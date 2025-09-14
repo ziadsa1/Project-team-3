@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Pages.module.css";
 import styles from "./Pages.module.css";
 import { FaUser, FaLock } from "react-icons/fa";
@@ -8,6 +8,11 @@ function LoginPage() {
   const navigate = useNavigate();
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    localStorage.removeItem("username");
+  }, []);
 
   async function login(e) {
     e.preventDefault();
@@ -20,14 +25,19 @@ function LoginPage() {
     });
     const data = await res.json();
     if (res.ok) {
-      navigate("/notes");
+      localStorage.setItem("username", data.user);
+      navigate("/tasks");
+    }
+    else {
+      setError("Invalid Username or Password");
     }
   }
   return (
-    <div className={styles.pageWrapper}>
+    <div className={styles.mainPage}>
       <div className={styles.loginForm}>
         <form onSubmit={login}>
           <h1>Login</h1>
+          {error && <div className={styles.error}>{error}</div>}
           <InputLogin
             type="text"
             placeholder="Username"
@@ -51,9 +61,7 @@ function LoginPage() {
           </div>
           <button type="submit">Login</button>
           <div className={styles.register}>
-            <p>
-              Don't have an account? <Link to="/register">Register</Link>
-            </p>
+            <p> Don't have an account? <Link to="/register">Register</Link> </p>
           </div>
         </form>
       </div>
