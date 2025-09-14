@@ -16,22 +16,32 @@ function LoginPage() {
 
   async function login(e) {
     e.preventDefault();
-    const res = await fetch("http://127.0.0.1:5000/", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem("username", data.user);
-      navigate("/tasks");
-    }
-    else {
-      setError("Invalid Username or Password");
+    try {
+      const res = await fetch("http://127.0.0.1:5000/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        setError("Server did not respond with valid JSON.");
+        return;
+      }
+
+      if (res.ok) {
+        localStorage.setItem("username", data.user);
+        navigate("/tasks");
+      } else {
+        setError(data.message || "Invalid Username or Password");
+      }
+    } catch (error) {
+      console.log();
     }
   }
+
   return (
     <div className={styles.mainPage}>
       <div className={styles.loginForm}>
@@ -61,7 +71,10 @@ function LoginPage() {
           </div>
           <button type="submit">Login</button>
           <div className={styles.register}>
-            <p> Don't have an account? <Link to="/register">Register</Link> </p>
+            <p>
+              {" "}
+              Don't have an account? <Link to="/register">Register</Link>{" "}
+            </p>
           </div>
         </form>
       </div>

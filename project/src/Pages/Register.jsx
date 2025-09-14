@@ -34,7 +34,7 @@ function RegisterPage() {
     }
   }
   return (
-    <div className={styles.pageWrapper}>
+    <div className={styles.mainPage}>
       <div className={styles.loginForm} style={{width: 400}}>
         <form onSubmit={register}>
           <h1>Register</h1>
