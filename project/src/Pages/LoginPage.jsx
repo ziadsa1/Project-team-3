@@ -72,7 +72,6 @@ function LoginPage() {
           <button type="submit">Login</button>
           <div className={styles.register}>
             <p>
-              {" "}
               Don't have an account? <Link to="/register">Register</Link>{" "}
             </p>
           </div>

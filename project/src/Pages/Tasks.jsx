@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import styles from "./pages.module.css"
+import styles from "./pages.module.css";
+import { FaDeleteLeft } from "react-icons/fa6";
 function Tasks() {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
@@ -25,10 +26,10 @@ function Tasks() {
     }
   }, [username, navigate]);
 
-  function saveTasks (updatedTasks) {
+  function saveTasks(updatedTasks) {
     setTasks(updatedTasks);
     localStorage.setItem(`tasks_${username}`, JSON.stringify(updatedTasks));
-  };
+  }
   function addTask() {
     if (!newTask.trim()) return;
     const task = {
@@ -38,7 +39,11 @@ function Tasks() {
     };
     saveTasks([...tasks, task]);
     setNewTask("");
-  };
+  }
+  function deleteTask(id) {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    saveTasks(updatedTasks);
+  }
 
   return (
     <div className={styles.page}>
@@ -62,7 +67,16 @@ function Tasks() {
           <ul className={styles.list}>
             {tasks.map((task) => (
               <li key={task.id}>
-                {task.task}
+                <span>{task.task}</span>
+                <div className={styles.actions}>
+                  <input type="checkbox" className={styles.checkbtn} id={`check-${task.id}`}/>
+                  <button 
+                    className={styles.iconbtn}
+                    onClick={() => deleteTask(task.id)} 
+                  >
+                    <FaDeleteLeft />
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
