@@ -4,6 +4,9 @@ import "./App.css";
 import Login from "./Pages/LoginPage"
 import Register from "./Pages/Register";
 import Tasks from "./Pages/Tasks"
+import Chatbot from "./Pages/Chatbot"
+import Pomodoro from "./Pages/Pomodoro"
+import Contact from "./Pages/Contact"
 export default function App() {
   return (
     <div>
@@ -11,6 +14,9 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/tasks" element={<Tasks />} />
+        <Route path="/pomodoro" element={<Pomodoro />} />
+        <Route path="/chatbot" element={<Chatbot />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </div>
   );

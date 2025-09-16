@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 import bcrypt
 import certifi
+import requests
 
 app = Flask(__name__)
 CORS(app)
@@ -45,7 +46,6 @@ def login():
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
-
     user = users.find_one({"username": username})
     if not user:
         return jsonify({"message": "User Not Found."}), 400
@@ -57,7 +57,40 @@ def login():
         }), 200 
     else:
         return jsonify({"message": "Invalid."}), 400
+    
+#======================Chat Bot===========================
+API_KEY = "AIzaSyCKcgVy1bJ7JZO4RyYx2IkZ4AuRUJNdCEQ"
+url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+
+headers = {
+    "Content-Type": "application/json",
+    "x-goog-api-key": API_KEY,
+}
+
+@app.route("/chatbot")
+def home():
+    question = "Explain Artificial Intelligence in a few elegant words."
+
+    data = {
+        "contents": [
+            {
+                "parts": [
+                    {"text": question}
+                ]
+            }
+        ]
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+
+    if response.status_code == 200:
+        result = response.json()
+        answer = result["candidates"][0]["content"]["parts"][0]["text"].strip()
+        return f"<h2>Question:</h2><p>{question}</p><h2>Answer:</h2><p>{answer}</p>"
+    else:
+        return f"Error {response.status_code}: {response.text}"
+
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)

@@ -19,6 +19,9 @@ export default function NavBar() {
     <div className={styles.navbar}>
       <nav>
         <Link to="/tasks">Tasks</Link>
+        <Link to="/pomodoro">Pomodoro</Link>
+        <Link to="/chatbot">Chat Bot</Link>
+        <Link to="/contact">Contact us</Link>
       </nav>
       <div className={styles.pfp}>
         <div className={styles.userinfo}>

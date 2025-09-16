@@ -15,7 +15,7 @@ function RegisterPage() {
   async function register(e) {
     e.preventDefault();
     try {
-      const response = await fetch("http://127.0.0.1:5000/register", {
+      const response = await fetch("http://127.0.0.1:5001/register", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -65,6 +65,11 @@ function RegisterPage() {
             onChange={(e) => setpassword(e.target.value)}
           />
           <button type="submit">Register</button>
+          <div className={styles.register}>
+            <p>
+              Already have an account? <Link to="/">Login</Link>
+            </p>
+          </div>
         </form>
       </div>
     </div>
