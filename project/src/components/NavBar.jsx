@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import styles from "./components.module.css";
-
+import bookIcon from "../../public/book.png";
 export default function NavBar() {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
@@ -17,6 +17,10 @@ export default function NavBar() {
 
   return (
     <div className={styles.navbar}>
+      <div className={styles.brand}>
+        <img src={bookIcon} alt="brand logo" className={styles.brandIcon} />
+        <span className={styles.brandName}>Ctrl+S(tudy)</span>
+      </div>
       <nav>
         <Link to="/tasks">Tasks</Link>
         <Link to="/pomodoro">Pomodoro</Link>

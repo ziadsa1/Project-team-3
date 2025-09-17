@@ -15,6 +15,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom: 120px;
 }
 .navbar nav a {
   color: white;
@@ -69,4 +70,21 @@
 .outbtn:hover {
   background: #e64b48;
   transform: scale(1.05);
+}
+.brand {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brandIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.brandName {
+  font-weight: bold;
+  font-size: 18px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

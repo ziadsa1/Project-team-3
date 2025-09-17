@@ -42,7 +42,8 @@ function Forgot_Password() {
         setStep(3);
         setMessage("Code verified! Enter new password.");
       } else {
-        setMessage("Invalid code");
+        setStep(2);
+        setMessage("Wrong Verification Code");
       }
     } catch {
       setMessage("verifying code");
