@@ -109,7 +109,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .error {
   height: 50px;
   border-radius: 6px;
-  margin-top: 5px;
+  margin-top: 10px;
   background-color: #ff1b1f;
   color: rgb(255, 255, 255);
   display: flex;

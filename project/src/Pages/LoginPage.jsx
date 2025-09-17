@@ -67,12 +67,12 @@ function LoginPage() {
               <input type="checkbox" />
               Remember me
             </label>
-            <a href="#">Forgot password?</a>
+            <Link to="/forgot-password">Forgot Password?</Link>
           </div>
           <button type="submit">Login</button>
           <div className={styles.register}>
             <p>
-              Don't have an account? <Link to="/register">Register</Link>{" "}
+              Don't have an account? <Link to="/register">Register</Link>
             </p>
           </div>
         </form>

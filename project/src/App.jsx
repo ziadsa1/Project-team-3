@@ -7,11 +7,13 @@ import Tasks from "./Pages/Tasks"
 import Chatbot from "./Pages/Chatbot"
 import Pomodoro from "./Pages/Pomodoro"
 import Contact from "./Pages/Contact"
+import Forgot_Password from "./Pages/Forgot_password";
 export default function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/forgot-password" element={<Forgot_Password />} />
         <Route path="/register" element={<Register />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/pomodoro" element={<Pomodoro />} />

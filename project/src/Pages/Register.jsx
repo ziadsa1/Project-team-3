@@ -11,6 +11,7 @@ function RegisterPage() {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
   async function register(e) {
     e.preventDefault();
@@ -27,10 +28,10 @@ function RegisterPage() {
       if (response.ok) {
         navigate("/");
       } 
-      else alert(data.message);
+      else setError(data.message);
     } 
     catch (error) {
-      console.error("Error:", error);
+      setError(data.message);
     }
   }
   return (
@@ -38,6 +39,7 @@ function RegisterPage() {
       <div className={styles.loginForm} style={{width: 400}}>
         <form onSubmit={register}>
           <h1>Register</h1>
+          {error && <div className={styles.error}>{error}</div>}
           <InputLogin
             type="text"
             placeholder="Full Name"

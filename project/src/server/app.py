@@ -5,10 +5,13 @@ from pymongo.server_api import ServerApi
 import bcrypt
 import certifi
 import requests
+import random
+import smtplib
 
 app = Flask(__name__)
 CORS(app)
 url = "mongodb+srv://dpuser:dpuser1234@study-app.hmoxuz2.mongodb.net/?retryWrites=true&w=majority&appName=study-app"
+verification_codes = {}
 
 client = MongoClient(
     url,
@@ -18,6 +21,54 @@ client = MongoClient(
 )
 db = client["myDatabase"]
 users = db["users"]
+
+def send_email(to_email, code):
+    company_email = "generatorgenerator100@gmail.com"
+    password = "wmukyqawkbsonmvi"
+    subject = "Verification Code"
+    body = f"Your verification code is: {code}"
+    message = f"Subject: {subject}\n\n{body}"
+
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login(company_email, password)
+    server.sendmail(company_email, to_email, message)
+    server.quit()
+
+
+@app.route("/forgot-password", methods=["POST"])
+def forgot_password():
+    data = request.get_json()
+    email = data.get("email")
+    user = users.find_one({"email": email})
+    if not user:
+        return jsonify({"message": "Email not found"}), 400
+
+    code = str(random.randint(100000, 999999))
+    verification_codes[email] = code
+    send_email(email, code)
+    return jsonify({"message": "Verification code has been sent."})
+
+@app.route("/verify-code", methods=["POST"])
+def verify_code():
+    data = request.get_json()
+    email = data.get("email")
+    code = data.get("code")
+    if verification_codes.get(email) == code:
+        return jsonify({"verified": True})
+    return jsonify({"verified": False})
+
+@app.route("/reset-password", methods=["POST"])
+def reset_password():
+    data = request.get_json()
+    email = data.get("email")
+    new_password = data.get("password")
+
+    hashed = bcrypt.hashpw(new_password.encode("utf-8"), bcrypt.gensalt())
+    users.update_one({"email": email}, {"$set": {"password": hashed}})
+    verification_codes.pop(email, None)
+
+    return jsonify({"message": "Password updated successfully"})
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -30,6 +81,9 @@ def register():
     if users.find_one({"username": username}):
         return jsonify({"message": "Username have been taken."})
 
+    if users.find_one({"email": email}):
+        return jsonify({"message": "Email has already been used."}), 400
+    
     hash_password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
     users.insert_one(
         {

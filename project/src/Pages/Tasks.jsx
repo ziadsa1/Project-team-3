@@ -36,6 +36,7 @@ function Tasks() {
       id: Date.now(),
       task: newTask,
       date: today,
+      completed: false
     };
     saveTasks([...tasks, task]);
     setNewTask("");
@@ -44,7 +45,10 @@ function Tasks() {
     const updatedTasks = tasks.filter((task) => task.id !== id);
     saveTasks(updatedTasks);
   }
-
+  function setTask(id) {
+    const updatedTasks = tasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task);
+    saveTasks(updatedTasks);
+  }
   return (
     <div className={styles.page}>
       <div>
@@ -69,7 +73,7 @@ function Tasks() {
               <li key={task.id}>
                 <span>{task.task}</span>
                 <div className={styles.actions}>
-                  <input type="checkbox" className={styles.checkbtn} id={`check-${task.id}`}/>
+                  <input type="checkbox" className={styles.checkbtn} checked={task.completed} id={`check-${task.id}`} onChange={() => setTask(task.id)}/>
                   <button 
                     className={styles.iconbtn}
                     onClick={() => deleteTask(task.id)} 
