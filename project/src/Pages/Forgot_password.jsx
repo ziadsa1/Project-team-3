@@ -25,7 +25,8 @@ function Forgot_Password() {
       } else {
         setMessage("data.message");
       }
-    } catch (err) {
+    } 
+    catch (err) {
       setMessage("sending code");
     }
   }
@@ -45,7 +46,8 @@ function Forgot_Password() {
         setStep(2);
         setMessage("Wrong Verification Code");
       }
-    } catch {
+    } 
+    catch {
       setMessage("verifying code");
     }
   }

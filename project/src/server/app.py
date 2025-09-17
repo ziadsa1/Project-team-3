@@ -111,7 +111,29 @@ def login():
         }), 200 
     else:
         return jsonify({"message": "Invalid."}), 400
-    
+#=====================Contact us=============================
+@app.route("/contact-us", methods=["POST"])
+def contact_us():
+    data = request.get_json()
+    username = data.get("username")
+    title = data.get("title")
+    description = data.get("description")
+
+    user = users.find_one({"username": username})
+    user_email = user["email"]
+    company_email = "generatorgenerator100@gmail.com"
+    password = "wmukyqawkbsonmvi"
+
+    subject = f"Contact Us - {title}"
+    body = f"From: {user_email}\n\n{description}"
+    message = f"Subject: {subject}\n\n{body}"
+
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login(company_email, password)
+    server.sendmail(company_email, company_email, message)
+    server.quit()
+    return jsonify({"message": "Your issue has been submitted successfully!"}), 200
 #======================Chat Bot===========================
 API_KEY = "AIzaSyCKcgVy1bJ7JZO4RyYx2IkZ4AuRUJNdCEQ"
 url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"

@@ -26,7 +26,8 @@ function LoginPage() {
       let data;
       try {
         data = await res.json();
-      } catch {
+      } 
+      catch {
         setError("Server did not respond with valid JSON.");
         return;
       }
@@ -37,7 +38,8 @@ function LoginPage() {
       } else {
         setError(data.message || "Invalid Username or Password");
       }
-    } catch (error) {
+    } 
+    catch (error) {
       console.log();
     }
   }

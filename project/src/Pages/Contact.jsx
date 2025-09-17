@@ -18,6 +18,9 @@ function Contact() {
       <div>
         <NavBar />
       </div>
+      <div className={styles.content}>
+        
+      </div>
     </div>
   );
 }

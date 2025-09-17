@@ -195,6 +195,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   white-space: normal; 
   transition: background 0.3s ease;
 }
+.list li span {
+  width: 950px;
+}
 .actions {
   display: flex;
   align-items: center;

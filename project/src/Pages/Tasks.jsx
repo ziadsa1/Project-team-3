@@ -20,7 +20,8 @@ function Tasks() {
     if (tsks_saved) {
       try {
         setTasks(JSON.parse(tsks_saved));
-      } catch {
+      } 
+      catch {
         setTasks([]);
       }
     }
