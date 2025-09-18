@@ -256,3 +256,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .checkbtn:active {
   transform: scale(1.1);
 }
+.taskimg {
+  display: block; 
+  margin: 0 auto;
+  margin-top: 70px;
+}
+.notask {
+  font-size: 30px; 
+  font-weight: 500;
+  color: #666;
+  text-align: center;
+  margin-left: 15px;
+  margin-top: 20px;
+  font-family: "Poppins", sans-serif;
+}

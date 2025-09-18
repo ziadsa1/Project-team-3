@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import styles from "./pages.module.css";
 import { FaDeleteLeft } from "react-icons/fa6";
+import taskimg from "../Assets/work-order.png"
 function Tasks() {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
@@ -67,7 +68,10 @@ function Tasks() {
         </div>
 
         {tasks.length === 0 ? (
-          <p>No tasks.</p>
+          <div>
+            <img src={taskimg} className={styles.taskimg} alt="ImageTask" width="250" height="250"/>
+            <h2 className={styles.notask}>No Tasks yet.</h2>
+          </div>
         ) : (
           <ul className={styles.list}>
             {tasks.map((task) => (

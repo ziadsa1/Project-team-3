@@ -101,6 +101,7 @@ def login():
     username = data.get("username")
     password = data.get("password")
     user = users.find_one({"username": username})
+    
     if not user:
         return jsonify({"message": "User Not Found."}), 400
 
@@ -111,6 +112,7 @@ def login():
         }), 200 
     else:
         return jsonify({"message": "Invalid."}), 400
+    
 #=====================Contact us=============================
 @app.route("/contact-us", methods=["POST"])
 def contact_us():

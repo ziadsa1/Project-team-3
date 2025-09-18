@@ -18,8 +18,8 @@ export default function NavBar() {
   return (
     <div className={styles.navbar}>
       <div className={styles.brand}>
-        <img src={bookIcon} alt="brand logo" className={styles.brandIcon} />
-        <span className={styles.brandName}>Ctrl+S(tudy)</span>
+        <img src={bookIcon} alt="brand logo" className={styles.brandicon} />
+        <span className={styles.brandname}>Ctrl+ S(tudy)</span>
       </div>
       <nav>
         <Link to="/tasks">Tasks</Link>
