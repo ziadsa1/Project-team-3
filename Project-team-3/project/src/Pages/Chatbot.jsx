@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import styles from "./pages.module.css";
-
 function Chatbot() {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
@@ -43,12 +42,9 @@ function Chatbot() {
 
   return (
     <div className={styles.chatLayout}>
-      {/* NavBar always stays on the right */}
       <div className={styles.navWrapper}>
         <NavBar />
       </div>
-
-      {/* Chatbot area fills the rest */}
       <div className={styles.chatContainer}>
         <div className={styles.messages}>
           {messages.map((msg, i) => (

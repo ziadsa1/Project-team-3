@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import styles from "./Pages.module.css";
-
 function Pomodoro() {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
@@ -26,8 +25,7 @@ function Pomodoro() {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
       setTimerId(id);
-    } 
-    else if (timeLeft === 0) {
+    } else if (timeLeft === 0) {
       setRunning(false);
       EndCycle();
     }
@@ -41,13 +39,11 @@ function Pomodoro() {
       if ((sessionCount + 1) % 4 === 0) {
         setMode("long");
         setTimeLeft(30 * 60);
-      } 
-      else {
+      } else {
         setMode("short");
         setTimeLeft(5 * 60);
       }
-    } 
-    else {
+    } else {
       setMode("work");
       setTimeLeft(25 * 60);
     }
@@ -69,10 +65,11 @@ function Pomodoro() {
     setSessionCount(0);
     setTimeLeft(25 * 60);
   }
+
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
   const formatTime = (num) => num.toString().padStart(2, "0");
-  const totalTime = (mode === "work" ? 1500 : mode === "short" ? 300 : 1800);
+  const totalTime = mode === "work" ? 1500 : mode === "short" ? 300 : 1800;
   return (
     <div className={styles.page}>
       <div>
@@ -80,7 +77,13 @@ function Pomodoro() {
       </div>
       <div className={styles.contentPomo}>
         <h1 className={styles.title}>
-          Pomodoro ({mode === "work"? "Work": mode === "short"? "Short Break": "Long Break"})
+          Pomodoro (
+          {mode === "work"
+            ? "Work"
+            : mode === "short"
+            ? "Short Break"
+            : "Long Break"}
+          )
         </h1>
         <div className={styles.timerWrapper}>
           <svg className={styles.progressRing} width="300" height="300">
@@ -92,8 +95,7 @@ function Pomodoro() {
               r="140"
               style={{
                 strokeDasharray: circumference,
-                strokeDashoffset:
-                  circumference * (1 - timeLeft / totalTime),
+                strokeDashoffset: (timeLeft / totalTime) * circumference
               }}
             />
           </svg>
@@ -107,7 +109,8 @@ function Pomodoro() {
           <button onClick={resetTimer}>Reset</button>
         </div>
         <p className={styles.note}>
-          focus for 25 minutes, then enjoy a short break. Repeat 4 times, then take a long break!
+          focus for 25 minutes, then enjoy a short break. Repeat 4 times, then
+          take a long break!
         </p>
       </div>
       {showPopup && (
@@ -115,7 +118,11 @@ function Pomodoro() {
           <div className={styles.popupContent}>
             <h2>Time Up!</h2>
             <p>
-              { mode === "work"? "Take a break!": mode === "shortBreak"? "Break over! back to work!": "Break over! start Working!"}
+              {mode === "work"
+                ? "Take a break!"
+                : mode === "shortBreak"
+                ? "Break over! back to work!"
+                : "Break over! start Working!"}
             </p>
             <button onClick={() => setShowPopup(false)}>Okay!</button>
           </div>
