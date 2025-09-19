@@ -4,6 +4,7 @@ import styles from "./Pages.module.css";
 import { FaUser, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { InputLogin } from "../components/Inputlogin";
+import loading from "../Assets/ring-resize.svg";
 function Forgot_Password() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -12,6 +13,7 @@ function Forgot_Password() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   async function sendCode() {
+    setStep(0);
     try {
       const res = await fetch("http://127.0.0.1:5001/forgot-password", {
         method: "POST",
@@ -25,13 +27,13 @@ function Forgot_Password() {
       } else {
         setMessage("data.message");
       }
-    } 
-    catch (err) {
+    } catch (err) {
       setMessage("sending code");
     }
   }
 
   async function verifyCode() {
+    setStep(0);
     try {
       const res = await fetch("http://127.0.0.1:5001/verify-code", {
         method: "POST",
@@ -46,13 +48,13 @@ function Forgot_Password() {
         setStep(2);
         setMessage("Wrong Verification Code");
       }
-    } 
-    catch {
+    } catch {
       setMessage("verifying code");
     }
   }
 
   async function resetPassword() {
+    setStep(0);
     try {
       const res = await fetch("http://127.0.0.1:5001/reset-password", {
         method: "POST",
@@ -70,8 +72,8 @@ function Forgot_Password() {
   return (
     <div className={styles.mainPage}>
       <div className={styles.loginForm}>
-        <h1>Forgot Password</h1>
-        {message && (
+        {step != 0 && <h1>Forgot Password</h1>}
+        {message && step != 0 && (
           <div
             className={styles.error}
             style={{ backgroundColor: "lightgreen" }}
@@ -79,8 +81,12 @@ function Forgot_Password() {
             {message}
           </div>
         )}
-        
 
+        {step === 0 && (
+          <div className={styles.loadingimg}>
+            <img src={loading} alt="load" height="150" />
+          </div>
+        )}
         {step === 1 && (
           <div>
             <InputLogin
@@ -89,9 +95,7 @@ function Forgot_Password() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <button onClick={sendCode}>
-              Send Code
-            </button>
+            <button onClick={sendCode}>Send Code</button>
           </div>
         )}
 
@@ -103,9 +107,7 @@ function Forgot_Password() {
               value={code}
               onChange={(e) => setCode(e.target.value)}
             />
-            <button onClick={verifyCode}>
-              Verify Code
-            </button>
+            <button onClick={verifyCode}>Verify Code</button>
           </div>
         )}
 
@@ -117,16 +119,16 @@ function Forgot_Password() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClick={resetPassword}>
-              Reset Password
-            </button>
+            <button onClick={resetPassword}>Reset Password</button>
           </div>
         )}
-        <div className={styles.register}>
-          <p>
-            Already have an account? <Link to="/">Login</Link>
-          </p>
-        </div>
+        {step != 0 && (
+          <div className={styles.register}>
+            <p>
+              Already have an account? <Link to="/">Login</Link>
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

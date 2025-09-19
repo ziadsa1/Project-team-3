@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import styles from "./pages.module.css";
 import { FaDeleteLeft } from "react-icons/fa6";
-import taskimg from "../Assets/work-order.png"
+import taskimg from "../Assets/work-order.png";
 function Tasks() {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
@@ -16,7 +16,6 @@ function Tasks() {
       navigate("/");
       return;
     }
-
     const tsks_saved = localStorage.getItem(`tasks_${username}`);
     if (tsks_saved) {
       try {
@@ -38,7 +37,7 @@ function Tasks() {
       id: Date.now(),
       task: newTask,
       date: today,
-      completed: false
+      completed: false,
     };
     saveTasks([...tasks, task]);
     setNewTask("");
@@ -69,7 +68,13 @@ function Tasks() {
 
         {tasks.length === 0 ? (
           <div>
-            <img src={taskimg} className={styles.taskimg} alt="ImageTask" width="250" height="250"/>
+            <img
+              src={taskimg}
+              className={styles.taskimg}
+              alt="ImageTask"
+              width="250"
+              height="250"
+            />
             <h2 className={styles.notask}>No Tasks yet.</h2>
           </div>
         ) : (
@@ -78,10 +83,16 @@ function Tasks() {
               <li key={task.id}>
                 <span>{task.task}</span>
                 <div className={styles.actions}>
-                  <input type="checkbox" className={styles.checkbtn} checked={task.completed} id={`check-${task.id}`} onChange={() => setTask(task.id)}/>
-                  <button 
+                  <input
+                    type="checkbox"
+                    className={styles.checkbtn}
+                    checked={task.completed}
+                    id={`check-${task.id}`}
+                    onChange={() => setTask(task.id)}
+                  />
+                  <button
                     className={styles.iconbtn}
-                    onClick={() => deleteTask(task.id)} 
+                    onClick={() => deleteTask(task.id)}
                   >
                     <FaDeleteLeft />
                   </button>

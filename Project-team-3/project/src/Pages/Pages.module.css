@@ -1,104 +1,120 @@
 @import url('https://fonts.googleapis.com/css2?family=Acme&family=Hind+Madurai:wght@300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
 .mainPage {
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: url('../Assets/pexels-shvetsa-3987020.jpg') no-repeat;
-    background-size: cover;
-    background-position: center;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('../Assets/pexels-shvetsa-3987020.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
 }
+
 .loginForm {
-    width: 420px;
-    margin-top: 20px;
-    background-color: transparent;
-    border: 2px solid rgba(255,255,255,.2);
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(30px);
-    color: white;
-    border-radius: 10px;
-    padding: 30px;
+  width: 420px;
+  margin-top: 20px;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(30px);
+  color: white;
+  border-radius: 10px;
+  padding: 30px;
 }
+
 .loginForm h1 {
-    font-size: 36px;
-    text-align: center;
+  font-size: 36px;
+  text-align: center;
 }
+
 .loginForm .inputbox {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    margin: 30px 0;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 30px 0;
 }
 
 .inputbox input {
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    border: 2px solid rgba(255,255,255,.2);
-    outline: none;
-    border-radius: 40px;
-    color: white;
-    padding: 20px 45px 20px 20px;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, .2);
+  outline: none;
+  border-radius: 40px;
+  color: white;
+  padding: 20px 45px 20px 20px;
 }
+
 .inputbox input::placeholder {
-    color: white;
+  color: white;
 }
+
 .inputbox .icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
 }
+
 .loginForm .remember {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14.5px;
+  margin: -15px 0 15px;
 }
+
 .remember label input {
-    accent-color: white;
-    margin-right: 4px;
+  accent-color: white;
+  margin-right: 4px;
 }
+
 .remember a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
+
 .remember a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
+
 .loginForm button {
-    width: 100%;
-    height: 45px;
-    background: white;
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0,.1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
+  width: 100%;
+  height: 45px;
+  background: white;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 700;
 }
+
 .loginForm .register {
-    font-size: 14.5px;
-    text-align: center;
-    margin: 20px 0 15px;
+  font-size: 14.5px;
+  text-align: center;
+  margin: 20px 0 15px;
 }
+
 .register p a {
-    color: white; 
-    text-decoration: none;
-    font-weight: 600;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
 }
+
 .register p a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
+
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(100%);
   cursor: pointer;
@@ -106,6 +122,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
   right: 18px;
 }
+
 .error {
   height: 50px;
   border-radius: 6px;
@@ -125,6 +142,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 100%;
   }
 }
+
 /* Task Page */
 .page {
   display: flex;
@@ -155,10 +173,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   outline: none;
   transition: all 0.3s ease;
 }
+
 .inputtask input:focus {
   border-color: #4b6cb7;
   box-shadow: 0 0 8px rgba(75, 108, 183, 0.3);
 }
+
 .inputtask button {
   padding: 12px 20px;
   background: linear-gradient(135deg, #4b6cb7, #182848);
@@ -174,6 +194,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+
 .list {
   list-style: none;
   padding: 0;
@@ -181,6 +202,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   flex-direction: column;
   gap: 12px;
 }
+
 .list li {
   background: white;
   padding: 15px 20px;
@@ -192,24 +214,29 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   justify-content: space-between;
   align-items: center;
   word-break: break-word;
-  white-space: normal; 
+  white-space: normal;
   transition: background 0.3s ease;
 }
+
 .list li span {
   width: 950px;
 }
+
 .actions {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .list li:has(.checkbtn:checked) {
   background-color: lightgreen;
   color: white;
 }
+
 .list li:has(.checkbtn:checked) .iconbtn {
   background: lightgreen;
 }
+
 .list li:has(.checkbtn:checked) .iconbtn svg {
   color: #004c10;
 }
@@ -235,7 +262,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .iconbtn:hover {
   background: #ffe5e5;
   transform: translateY(-3px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
 }
 
 .iconbtn:hover svg {
@@ -256,17 +283,285 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .checkbtn:active {
   transform: scale(1.1);
 }
+
 .taskimg {
-  display: block; 
+  display: block;
   margin: 0 auto;
   margin-top: 70px;
 }
+
 .notask {
-  font-size: 30px; 
+  font-size: 30px;
   font-weight: 500;
   color: #666;
   text-align: center;
   margin-left: 15px;
   margin-top: 20px;
   font-family: "Poppins", sans-serif;
+}
+.loadingimg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.contentPomo {
+  flex: 1;
+  margin-left: 220px;
+  padding: 40px;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.page h1 {
+  color: #0077cc;
+}
+
+#timer {
+  font-size: 60px;
+  margin: 20px;
+  color: #005fa3;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background-color: #005fa3;
+}
+
+.page {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(120deg, #d3e5ff, #f8fbff);
+}
+
+.title {
+  color: #004aad;
+  margin-bottom: 25px;
+  font-size: 2rem;
+}
+
+.timerWrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+}
+
+.progressRing {
+  transform: rotate(-90deg);
+}
+
+.bg {
+  fill: none;
+  stroke: #e6e6e6;
+  stroke-width: 15;
+}
+
+.progress {
+  fill: none;
+  stroke: #004aad;
+  stroke-width: 15;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.timeDisplay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+.buttons button {
+  background-color: #004aad;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  margin: 0 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttons button:hover {
+  background-color: #00308f;
+}
+
+.note {
+  margin-top: auto;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.95rem;
+  color: #666;
+  text-align: center;
+  max-width: 300px;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.popupContent {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  animation: popupFade 0.3s ease-out;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.popupContent h2 {
+  color: #004aad;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.popupContent p {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.popupContent button {
+  background-color: #004aad;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.popupContent button:hover {
+  background-color: #00308f;
+}
+
+@keyframes popupFade {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.chatLayout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background: #010141;
+  color: white;
+}
+
+.navWrapper {
+  width: 220px;
+  background: #111;
+  color: white;
+  border-left: 1px solid #333;
+}
+
+.chatContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  color: #000;
+}
+
+.messages {
+  padding: 16px;
+  background: #f5f5f5;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  background: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.userMsg {
+  align-self: flex-start;
+  background: #e6e6e6;
+  color: #333;
+  padding: 10px 14px;
+  border-radius: 8px;
+  max-width: 70%;
+  word-wrap: break-word;
+  display: block; 
+}
+
+.botMsg {
+  align-self: flex-end;
+  background: #0084ff;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  max-width: 70%;
+  word-wrap: break-word;
+  display: block; 
+}
+
+.inputArea {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+  background: white;
+}
+
+.inputArea input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+
+.inputArea button {
+  margin-left: 8px;
+  background: #0084ff;
+  border: none;
+  padding: 10px 16px;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.inputArea button:hover {
+  background: #006fe0;
 }

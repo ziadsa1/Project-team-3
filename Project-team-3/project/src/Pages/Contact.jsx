@@ -5,7 +5,7 @@ import styles from "./pages.module.css"
 function Contact() {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
-
+  const [Input, setInput] = useState("");
   useEffect(() => {
         if (!username) {
             navigate("/");
@@ -17,9 +17,6 @@ function Contact() {
     <div className={styles.page}>
       <div>
         <NavBar />
-      </div>
-      <div className={styles.content}>
-        
       </div>
     </div>
   );

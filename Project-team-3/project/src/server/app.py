@@ -145,10 +145,11 @@ headers = {
     "x-goog-api-key": API_KEY,
 }
 
-@app.route("/chatbot")
-def home():
-    question = "Explain Artificial Intelligence in a few elegant words."
-
+@app.route("/chatbot", methods=["POST"])
+def chatbot():
+    data = request.get_json()
+    question = data.get("question")
+    question = f"You are Lui. a chatbot to help students. here is the students text they want to say to you: {question}. try to make it like a tutorial and dont type so much only if it is necessary!"
     data = {
         "contents": [
             {
@@ -164,9 +165,9 @@ def home():
     if response.status_code == 200:
         result = response.json()
         answer = result["candidates"][0]["content"]["parts"][0]["text"].strip()
-        return f"<h2>Question:</h2><p>{question}</p><h2>Answer:</h2><p>{answer}</p>"
+        return jsonify({"answer": answer})
     else:
-        return f"Error {response.status_code}: {response.text}"
+        return jsonify({"answer":"Didn't respond."})
 
 
 
