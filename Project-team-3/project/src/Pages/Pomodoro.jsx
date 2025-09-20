@@ -95,7 +95,7 @@ function Pomodoro() {
               r="140"
               style={{
                 strokeDasharray: circumference,
-                strokeDashoffset: (timeLeft / totalTime) * circumference
+                strokeDashoffset: circumference * (1 - timeLeft / totalTime)
               }}
             />
           </svg>
@@ -109,8 +109,8 @@ function Pomodoro() {
           <button onClick={resetTimer}>Reset</button>
         </div>
         <p className={styles.note}>
-          focus for 25 minutes, then enjoy a short break. Repeat 4 times, then
-          take a long break!
+          focus for 25 minutes, enjoy a short break. 
+          Repeat 4 times, then take a long break!
         </p>
       </div>
       {showPopup && (

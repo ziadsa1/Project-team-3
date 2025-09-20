@@ -7,7 +7,7 @@ function Chatbot() {
   const username = localStorage.getItem("username");
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const inputRef = useRef();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (!username) {
@@ -17,25 +17,21 @@ function Chatbot() {
     inputRef.current?.focus();
   }, [username, navigate]);
 
-  async function ask(question) {
+  async function ask(question, messages) {
     setMessages((prev) => [...prev, { role: "human", message: question }]);
-    try {
-      const res = await fetch("http://127.0.0.1:5001/chatbot", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
-      });
-      const data = await res.json();
-      setMessages((prev) => [...prev, { role: "bot", message: data.answer }]);
-    } catch (error) {
-      console.error(error);
-    }
+    const res = await fetch("http://127.0.0.1:5001/chatbot", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question }),
+    });
+    const data = await res.json();
+    setMessages((prev) => [...prev, { role: "bot", message: data.answer }]);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!input.trim()) return;
-    ask(input);
+    ask(input,messages);
     setInput("");
     inputRef.current.focus();
   };

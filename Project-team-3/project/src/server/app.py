@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 url = "mongodb+srv://dpuser:dpuser1234@study-app.hmoxuz2.mongodb.net/?retryWrites=true&w=majority&appName=study-app"
 verification_codes = {}
-
+history = []
 client = MongoClient(
     url,
     tls=True,
@@ -97,6 +97,7 @@ def register():
 
 @app.route("/", methods=["POST"])
 def login():
+    history = []
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
@@ -149,7 +150,15 @@ headers = {
 def chatbot():
     data = request.get_json()
     question = data.get("question")
-    question = f"You are Lui. a chatbot to help students. here is the students text they want to say to you: {question}. try to make it like a tutorial and dont type so much only if it is necessary!"
+    history.append(question)
+    conversation = ""
+    for i in range(len(history)):
+        conversation += history[i]
+        conversation += " "
+    print(question)
+    question = f"""Use the chat history to understand the context. Make the responses human as possible avoid writing more than 100 words make text short and understandable this is just instructions dont react to this i repeat dont type or react to this. Chat history: {conversation} , try just to respond on the chat question or text dont repeat too much
+                Current question: {question}  
+                Answer in a way that helps the user study and understand."""
     data = {
         "contents": [
             {
