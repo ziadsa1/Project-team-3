@@ -115,18 +115,18 @@ def login():
         return jsonify({"message": "Invalid."}), 400
     
 #=====================Contact us=============================
-@app.route("/contact-us", methods=["POST"])
+@app.route("/contact", methods=["POST"])
 def contact_us():
     data = request.get_json()
     username = data.get("username")
     title = data.get("title")
-    description = data.get("description")
+    description = data.get("message")
 
     user = users.find_one({"username": username})
     user_email = user["email"]
+
     company_email = "generatorgenerator100@gmail.com"
     password = "wmukyqawkbsonmvi"
-
     subject = f"Contact Us - {title}"
     body = f"From: {user_email}\n\n{description}"
     message = f"Subject: {subject}\n\n{body}"
@@ -136,7 +136,7 @@ def contact_us():
     server.login(company_email, password)
     server.sendmail(company_email, company_email, message)
     server.quit()
-    return jsonify({"message": "Your issue has been submitted successfully!"}), 200
+    return jsonify({"message": "Your issue has been submitted!"}), 200
 #======================Chat Bot===========================
 API_KEY = "AIzaSyCKcgVy1bJ7JZO4RyYx2IkZ4AuRUJNdCEQ"
 url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
@@ -156,7 +156,7 @@ def chatbot():
         conversation += history[i]
         conversation += " "
     print(question)
-    question = f"""Use the chat history to understand the context. Make the responses human as possible avoid writing more than 100 words make text short and understandable this is just instructions dont react to this i repeat dont type or react to this. Chat history: {conversation} , try just to respond on the chat question or text dont repeat too much
+    question = f"""your name is Bor3i, Use the chat history to understand the context. Make the responses human as possible avoid writing more than 100 words make text short and understandable this is just instructions dont react to this i repeat dont type or react to this. Chat history: {conversation} , try just to respond on the chat question or text dont repeat too much
                 Current question: {question}  
                 Answer in a way that helps the user study and understand."""
     data = {
@@ -176,7 +176,7 @@ def chatbot():
         answer = result["candidates"][0]["content"]["parts"][0]["text"].strip()
         return jsonify({"answer": answer})
     else:
-        return jsonify({"answer":"Didn't respond."})
+        return jsonify({"answer":"I can't do that."})
 
 
 

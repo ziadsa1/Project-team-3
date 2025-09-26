@@ -9,9 +9,12 @@ function LoginPage() {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [error, setError] = useState("");
+  const [loggedin, setLoggedin] = useState(false);
 
   useEffect(() => {
-    localStorage.removeItem("username");
+    if (localStorage.getItem("logged") === "true") {
+      navigate("/tasks");
+    }
   }, []);
 
   async function login(e) {
@@ -34,6 +37,7 @@ function LoginPage() {
 
       if (res.ok) {
         localStorage.setItem("username", data.user);
+        localStorage.setItem("logged", loggedin);
         navigate("/tasks");
       } else {
         setError(data.message || "Invalid Username or Password");
@@ -66,7 +70,7 @@ function LoginPage() {
           />
           <div className={styles.remember}>
             <label>
-              <input type="checkbox" />
+              <input type="checkbox" checked={loggedin} onChange={(e) => setLoggedin(e.target.checked)}/>
               Remember me
             </label>
             <Link to="/forgot-password">Forgot Password?</Link>

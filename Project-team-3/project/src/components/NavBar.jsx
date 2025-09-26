@@ -12,6 +12,7 @@ export default function NavBar() {
   
   function logout() {
     localStorage.removeItem("username");
+    localStorage.removeItem("logged");
     navigate("/");
   }
 

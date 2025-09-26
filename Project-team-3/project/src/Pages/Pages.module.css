@@ -486,8 +486,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .navWrapper {
   width: 220px;
-  background: #111;
-  color: white;
   border-left: 1px solid #333;
 }
 
@@ -565,3 +563,78 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .inputArea button:hover {
   background: #006fe0;
 }
+/*=============Form Page===========*/
+.form_container {
+  margin-left: 220px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  width: 1300px;
+  display: flex;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.contactText {
+  font-size: 30px;
+  font-weight: bold;
+  color: #1976d2;
+  margin-bottom: 6px;
+}
+.form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1976d2;
+  margin-bottom: 5px;
+}
+.form input, .form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: 14px;
+  background: #f9f9f9;
+  color: #333;
+  transition: border 0.3s ease, background 0.3s ease;
+}
+
+.form input::placeholder, .form textarea::placeholder {
+  color: #888;
+}
+
+.form input:focus, .form textarea:focus {
+  border-color: #1976d2;
+  background: #fff;
+  outline: none;
+}
+
+.form textarea {
+  resize: none;
+  min-height: 100px;
+}
+
+.form_submit_btn {
+  align-self: flex-start;
+  padding: 12px 20px;
+  border: none;
+  background: #1976d2;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.form_submit_btn:hover {
+  background: #1565c0;
+}
+
+.form_submit_btn:active {
+  transform: scale(0.96);
+}
+
