@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import axios from "axios";
 import styles from "./pages.module.css";
 import { FaDeleteLeft } from "react-icons/fa6";
 import taskimg from "../Assets/work-order.png";
 function Tasks() {
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
-  const today = new Date().toISOString().split("T")[0];
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
@@ -16,40 +16,62 @@ function Tasks() {
       navigate("/");
       return;
     }
-    const tsks_saved = localStorage.getItem(`tasks_${username}`);
-    if (tsks_saved) {
-      try {
-        setTasks(JSON.parse(tsks_saved));
-      } 
-      catch {
-        setTasks([]);
-      }
+    getTasks();
+  }, []);
+  async function getTasks() {
+    try {
+      const res = await axios.get("http://localhost:5001/tasks", {
+        params: { username },
+      });
+      setTasks(res.data);
+    } catch (err) {
+      console.log(err);
     }
-  }, [username, navigate]);
-
-  function saveTasks(updatedTasks) {
-    setTasks(updatedTasks);
-    localStorage.setItem(`tasks_${username}`, JSON.stringify(updatedTasks));
   }
-  function addTask() {
+  async function addTasks() {
     if (!newTask.trim()) return;
-    const task = {
-      id: Date.now(),
-      task: newTask,
-      date: today,
-      completed: false,
-    };
-    saveTasks([...tasks, task]);
-    setNewTask("");
+    try {
+      const res = await axios.post("http://localhost:5001/tasks", {
+        username,
+        task: newTask.trim(),
+      });
+      setNewTask("");
+      getTasks();
+    } catch (err) {
+      console.log(err);
+    }
   }
-  function deleteTask(id) {
-    const updatedTasks = tasks.filter((task) => task.id !== id);
-    saveTasks(updatedTasks);
+  async function check(taskId, checkmark) {
+    setTasks((prevTasks) =>
+      prevTasks.map((t) => t._id === taskId ? { ...t, completed: !checkmark } : t)
+    );
+    try {
+      await axios.patch("http://localhost:5001/tasks", {
+        username,
+        taskId,
+        completed: !checkmark,
+      });
+    } catch (err) {
+      console.log(err);
+      setTasks((prevTasks) => prevTasks.map((t) => (t._id === taskId ? { ...t, completed: checkmark } : t)));
+    }
   }
-  function setTask(id) {
-    const updatedTasks = tasks.map((task) => task.id === id ? { ...task, completed: !task.completed } : task);
-    saveTasks(updatedTasks);
+  async function deleteTask(taskId) {
+    const prevTasks = tasks;
+    setTasks((prev) => prev.filter((task) => task._id !== taskId));
+    try {
+      await axios.delete("http://localhost:5001/tasks", {
+        data: {
+          username,
+          taskId: taskId,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      setTasks(prevTasks);
+    }
   }
+
   return (
     <div className={styles.page}>
       <div>
@@ -63,7 +85,7 @@ function Tasks() {
             onChange={(e) => setNewTask(e.target.value)}
             placeholder="Add a task"
           />
-          <button onClick={addTask}>Add</button>
+          <button onClick={addTasks}>Add</button>
         </div>
 
         {tasks.length === 0 ? (
@@ -80,19 +102,19 @@ function Tasks() {
         ) : (
           <ul className={styles.list}>
             {tasks.map((task) => (
-              <li key={task.id}>
+              <li key={task._id}>
                 <span>{task.task}</span>
                 <div className={styles.actions}>
                   <input
                     type="checkbox"
                     className={styles.checkbtn}
                     checked={task.completed}
-                    id={`check-${task.id}`}
-                    onChange={() => setTask(task.id)}
+                    id={`check-${task._id}`}
+                    onChange={() => check(task._id, task.completed)}
                   />
                   <button
                     className={styles.iconbtn}
-                    onClick={() => deleteTask(task.id)}
+                    onClick={() => deleteTask(task._id)}
                   >
                     <FaDeleteLeft />
                   </button>

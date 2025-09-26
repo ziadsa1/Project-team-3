@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
+from bson.objectid import ObjectId
 import bcrypt
 import certifi
 import requests
@@ -21,7 +22,7 @@ client = MongoClient(
 )
 db = client["myDatabase"]
 users = db["users"]
-
+users_tasks = db["tasks"]
 def send_email(to_email, code):
     company_email = "generatorgenerator100@gmail.com"
     password = "wmukyqawkbsonmvi"
@@ -177,8 +178,47 @@ def chatbot():
         return jsonify({"answer": answer})
     else:
         return jsonify({"answer":"I can't do that."})
+#===================Tasks Page=====================
+@app.route("/tasks", methods=["GET"])
+@app.route("/tasks", methods=["GET"])
+def get_tasks():
+    username = request.args.get("username")
+    tasks = list(users_tasks.find({"username": username}))
+    for task in tasks:
+        task["_id"] = str(task["_id"])
+    return jsonify(tasks)
 
+@app.route("/tasks", methods=["POST"])
+def add_task():
+    data = request.get_json()
+    task = {
+        "username": data.get("username"),
+        "task": data.get("task"),
+        "completed": False
+    }
+    users_tasks.insert_one(task)
+    return jsonify({"message": "Task added"}), 201
 
+@app.route("/tasks", methods=["PATCH"])
+def update_task():
+    data = request.get_json()
+    username = data.get("username")
+    task_id = data.get("taskId")
+    completed = data.get("completed")
+    users_tasks.update_one(
+        {"username": username, "_id": ObjectId(task_id)},
+        {"$set": {"completed": completed}}
+    )    
+    return jsonify({"message": "Task updated"}), 200
+ 
+
+@app.route("/tasks", methods=["DELETE"])
+def delete_task():
+    data = request.get_json()
+    username = data.get("username")
+    task_id = data.get("taskId")
+    users_tasks.delete_one( {"username": username, "_id": ObjectId(task_id)})
+    return jsonify({"message": "Task deleted"}), 200
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)
