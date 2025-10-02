@@ -19,57 +19,38 @@ function Tasks() {
     getTasks();
   }, []);
   async function getTasks() {
-    try {
-      const res = await axios.get("http://localhost:5001/tasks", {
-        params: { username },
-      });
-      setTasks(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await axios.get("http://localhost:5001/tasks", {
+      params: { username },
+    });
+    setTasks(res.data);
   }
   async function addTasks() {
     if (!newTask.trim()) return;
-    try {
-      const res = await axios.post("http://localhost:5001/tasks", {
-        username,
-        task: newTask.trim(),
-      });
-      setNewTask("");
-      getTasks();
-    } catch (err) {
-      console.log(err);
-    }
+    await axios.post("http://localhost:5001/tasks", {
+      username,
+      task: newTask.trim(),
+    });
+    setNewTask("");
+    getTasks();
   }
   async function check(taskId, checkmark) {
     setTasks((prevTasks) =>
       prevTasks.map((t) => t._id === taskId ? { ...t, completed: !checkmark } : t)
     );
-    try {
-      await axios.patch("http://localhost:5001/tasks", {
-        username,
-        taskId,
-        completed: !checkmark,
-      });
-    } catch (err) {
-      console.log(err);
-      setTasks((prevTasks) => prevTasks.map((t) => (t._id === taskId ? { ...t, completed: checkmark } : t)));
-    }
+    await axios.patch("http://localhost:5001/tasks", {
+      username,
+      taskId,
+      completed: !checkmark,
+    });
   }
   async function deleteTask(taskId) {
-    const prevTasks = tasks;
     setTasks((prev) => prev.filter((task) => task._id !== taskId));
-    try {
-      await axios.delete("http://localhost:5001/tasks", {
-        data: {
-          username,
-          taskId: taskId,
-        },
-      });
-    } catch (err) {
-      console.log(err);
-      setTasks(prevTasks);
-    }
+    await axios.delete("http://localhost:5001/tasks", {
+      data: {
+        username,
+        taskId: taskId,
+      },
+    });
   }
 
   return (
@@ -109,7 +90,6 @@ function Tasks() {
                     type="checkbox"
                     className={styles.checkbtn}
                     checked={task.completed}
-                    id={`check-${task._id}`}
                     onChange={() => check(task._id, task.completed)}
                   />
                   <button

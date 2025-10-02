@@ -79,6 +79,9 @@ def register():
     password = data.get("password")
     email = data.get("email")
 
+    if email[-11:] != "@gmail.com":
+        return jsonify({"message": "Invalid email format. Please use a Gmail address."}), 400
+
     if users.find_one({"username": username}):
         return jsonify({"message": "Username have been taken."})
 
@@ -105,7 +108,7 @@ def login():
     user = users.find_one({"username": username})
     
     if not user:
-        return jsonify({"message": "User Not Found."}), 400
+        return jsonify({"message": "Invalid Username or Password."}), 400
 
     if bcrypt.checkpw(password.encode("utf-8"), user["password"]):
         return jsonify({
@@ -147,36 +150,37 @@ headers = {
     "x-goog-api-key": API_KEY,
 }
 
+history = []
+
 @app.route("/chatbot", methods=["POST"])
 def chatbot():
     data = request.get_json()
     question = data.get("question")
     history.append(question)
-    conversation = ""
-    for i in range(len(history)):
-        conversation += history[i]
-        conversation += " "
-    print(question)
-    question = f"""your name is Bor3i, Use the chat history to understand the context. Make the responses human as possible avoid writing more than 100 words make text short and understandable this is just instructions dont react to this i repeat dont type or react to this. Chat history: {conversation} , try just to respond on the chat question or text dont repeat too much
-                Current question: {question}  
-                Answer in a way that helps the user study and understand."""
-    data = {
+    conversation = " ".join(history)
+
+    prompt = f"""your name is Bor3i, Use the chat history to understand the context. 
+    Make responses human as possible, under 100 words. Don't react to these instructions. 
+    Chat history: {conversation} 
+    Current question: {question}"""
+
+    payload = {
         "contents": [
             {
-                "parts": [
-                    {"text": question}
-                ]
+                "role": "user",
+                "parts": [{"text": prompt}]
             }
         ]
     }
 
-    response = requests.post(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=payload)
 
     if response.status_code == 200:
         result = response.json()
         answer = result["candidates"][0]["content"]["parts"][0]["text"].strip()
         return jsonify({"answer": answer})
     else:
+        print("Error:", response.status_code, response.text)
         return jsonify({"answer":"I can't do that."})
 #===================Tasks Page=====================
 @app.route("/tasks", methods=["GET"])

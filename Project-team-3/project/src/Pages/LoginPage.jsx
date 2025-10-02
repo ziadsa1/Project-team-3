@@ -19,32 +19,21 @@ function LoginPage() {
 
   async function login(e) {
     e.preventDefault();
-    try {
-      const res = await fetch("http://127.0.0.1:5001/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
+    const res = await fetch("http://127.0.0.1:5001/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
 
-      let data;
-      try {
-        data = await res.json();
-      } 
-      catch {
-        setError("Server did not respond with valid JSON.");
-        return;
-      }
+    let data;
+    data = await res.json();
 
-      if (res.ok) {
-        localStorage.setItem("username", data.user);
-        localStorage.setItem("logged", loggedin);
-        navigate("/tasks");
-      } else {
-        setError(data.message || "Invalid Username or Password");
-      }
-    } 
-    catch (error) {
-      console.log();
+    if (res.ok) {
+      localStorage.setItem("username", data.user);
+      localStorage.setItem("logged", loggedin);
+      navigate("/tasks");
+    } else {
+      setError(data.message || "Invalid Username or Password");
     }
   }
 
@@ -70,7 +59,11 @@ function LoginPage() {
           />
           <div className={styles.remember}>
             <label>
-              <input type="checkbox" checked={loggedin} onChange={(e) => setLoggedin(e.target.checked)}/>
+              <input
+                type="checkbox"
+                checked={loggedin}
+                onChange={(e) => setLoggedin(e.target.checked)}
+              />
               Remember me
             </label>
             <Link to="/forgot-password">Forgot Password?</Link>
