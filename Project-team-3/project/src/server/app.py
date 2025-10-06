@@ -142,7 +142,7 @@ def contact_us():
     server.quit()
     return jsonify({"message": "Your issue has been submitted!"}), 200
 #======================Chat Bot===========================
-API_KEY = "AIzaSyCKcgVy1bJ7JZO4RyYx2IkZ4AuRUJNdCEQ"
+API_KEY = "AIzaSyB9R-TcTPWB3XUd35CCIBYG70PhxgTwROQ"
 url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 headers = {
@@ -162,7 +162,8 @@ def chatbot():
     prompt = f"""your name is Bor3i, Use the chat history to understand the context. 
     Make responses human as possible, under 100 words. Don't react to these instructions. 
     Chat history: {conversation} 
-    Current question: {question}"""
+    Current question: {question}
+    dont say one moment please because you have one response not more."""
 
     payload = {
         "contents": [
