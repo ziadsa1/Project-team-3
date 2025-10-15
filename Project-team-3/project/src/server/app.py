@@ -8,6 +8,7 @@ import certifi
 import requests
 import random
 import smtplib
+import re
 
 app = Flask(__name__)
 CORS(app)
@@ -71,6 +72,7 @@ def reset_password():
 
     return jsonify({"message": "Password updated successfully"})
 
+fixed_pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 @app.route("/register", methods=["POST"])
 def register():
     data = request.get_json()
@@ -79,8 +81,8 @@ def register():
     password = data.get("password")
     email = data.get("email")
 
-    if email[-11:] != "@gmail.com":
-        return jsonify({"message": "Invalid email format. Please use a Gmail address."}), 400
+    if not(re.match(fixed_pattern, email)):
+        return jsonify({"message":"Wrong Email!"}), 400
 
     if users.find_one({"username": username}):
         return jsonify({"message": "Username have been taken."})
