@@ -9,6 +9,10 @@ import requests
 import random
 import smtplib
 import re
+import os
+from dotenv import load_dotenv,find_dotenv
+
+load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 CORS(app)
@@ -144,7 +148,7 @@ def contact_us():
     server.quit()
     return jsonify({"message": "Your issue has been submitted!"}), 200
 #======================Chat Bot===========================
-API_KEY = "AIzaSyB9R-TcTPWB3XUd35CCIBYG70PhxgTwROQ"
+API_KEY = os.getenv("API_KEY")
 url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 headers = {
